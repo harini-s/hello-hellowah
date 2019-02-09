@@ -1,0 +1,41 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.0.RELEASE' apply false
+}
+
+group 'com.nonamecompany.apis.hello.service'
+version '1.0.0-SNAPSHOT'
+description 'RESTFul Services for Hello Service'
+
+
+allprojects {
+    group this.group
+    version this.version
+    ext {
+        serviceName = "hello-service"
+        apiVersion = "1.0"
+        lombokVersion = "1.18.4"
+    }
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            mavenLocal()
+        }
+    }
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+subprojects { subproject ->
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'io.spring.dependency-management'
+
+    group rootProject.group
+    version rootProject.version
+    sourceCompatibility = 1.8
+}

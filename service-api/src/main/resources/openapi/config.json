@@ -1,0 +1,15 @@
+{
+  "apiPackage": "com.nonamecompany.apis.hello.service.api",
+  "modelPackage": "com.nonamecompany.apis.hello.service.api.model",
+  "configPackage" : "com.nonamecompany.apis.hello.service.api.config",
+  "serializableModel": false,
+  "dateLibrary": "java8",
+  "interfaceOnly": true,
+  "useBeanValidation": true,
+  "java8": true,
+  "async": true,
+  "reactive": false,
+  "useOptional": false,
+  "swaggerDocketConfig": false,
+  "library": "spring-boot"
+}

@@ -1,0 +1,45 @@
+ext {
+    openApiFileName = "${projectDir}/src/main/resources/openapi/hello-service.yml"
+    openApiOutputDirName = "${project.buildDir}/openapi-generator"
+}
+
+configurations {
+    openApiGenerator
+}
+
+task openApiGenerator(type: JavaExec) {
+    classpath = configurations.openApiGenerator
+    main = 'org.openapitools.codegen.OpenAPIGenerator'
+    args = [ 'generate', '--generator-name', 'spring',
+             '--input-spec', openApiFileName,
+             '--config', "${projectDir}/src/main/resources/openapi/config.json",
+             '--output', openApiOutputDirName
+    ]
+}
+
+compileJava.dependsOn openApiGenerator
+
+sourceSets {
+    main {
+        java {
+            srcDir "${openApiOutputDirName}/src/main/java"
+        }
+        resources {
+            srcDir "${openApiOutputDirName}/src/main/resources"
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+dependencies {
+    openApiGenerator "org.openapitools:openapi-generator-cli:3.2.3"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "io.swagger:swagger-annotations:1.5.20"
+    compile "javax.servlet:javax.servlet-api"
+    compile "io.swagger:swagger-annotations:1.5.19"
+}

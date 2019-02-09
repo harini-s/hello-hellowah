@@ -1,0 +1,45 @@
+---
+swagger: "2.0"
+info:
+  description: No description
+  version: 1.0.0
+  title: Hello service
+  contact:
+    name: Mr. Cooper
+    url: https://www.nonamecompany.com
+    email: noreply@noname.com
+basePath: /api/v1/hello
+schemes:
+  - https
+tags: []
+security:
+  - API Key: []
+paths:
+  /hello:
+    get:
+      tags: [hello, welcome]
+      summary: Hello endpoint
+      description: ""
+      operationId: "getHelloMessage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - $ref: './schema/hello-schema.yml#/parameters/X-Application-Id'
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "./schema/hello-schema.yml#/definitions/HelloResponse"
+        400:
+          description: Bad request
+          schema:
+            $ref: './schema/hello-schema.yml#/definitions/Errors'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: './schema/hello-schema.yml#/definitions/Error'
+      deprecated: false
+      security:
+        - API Key: []

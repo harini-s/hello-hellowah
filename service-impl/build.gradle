@@ -1,0 +1,48 @@
+plugins {
+    id "org.springframework.boot"
+    id "com.gorylenko.gradle-git-properties" version "1.5.2"
+}
+
+configurations {
+    newrelic
+}
+
+task copyAgent(type: Copy) {
+    from configurations.newrelic
+    into "${buildDir}/newrelic"
+    rename "newrelic-agent-[\\d\\.]+\\.jar", "newrelic-agent.jar"
+}
+
+bootJar {
+ baseName = project.rootProject.name
+}
+
+dependencies {
+    newrelic "com.newrelic.agent.java:newrelic-agent:4.7.0"
+
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor",
+            "org.springframework.boot:spring-boot-configuration-processor",
+            "org.projectlombok:lombok"
+
+    implementation project(":hello-data-repo"),
+            project(":service-api"),
+            "org.projectlombok:lombok",
+            "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-devtools",
+            "org.apache.commons:commons-lang3",
+            //dependencies for swagger-ui
+            "io.springfox:springfox-swagger2:2.9.2",
+            "io.springfox:springfox-spring-web:2.9.2",
+            "io.springfox:springfox-swagger-ui:2.9.2",
+            "org.apache.commons:commons-lang3",
+            "ma.glasnost.orika:orika-core:1.5.2"
+
+    runtime "biz.paluch.logging:logstash-gelf:1.11.2"
+    runtime "com.h2database:h2"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test",
+            "com.squareup.okhttp3:mockwebserver:3.11.0",
+            "commons-io:commons-io:2.6",
+            "org.yaml:snakeyaml"
+}

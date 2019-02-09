@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+include "hello-data-repo", "service-api", "service-impl"
+include 'service-api'
+include 'service-impl'
+

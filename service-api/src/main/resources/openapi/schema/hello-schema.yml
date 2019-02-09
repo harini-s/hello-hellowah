@@ -1,0 +1,35 @@
+definitions:
+  HelloResponse:
+    type: object
+    required:
+      - user_id
+      - message
+    properties:
+      user_id:
+        type: string
+        required: true
+      message:
+        type: string
+        minLength: 2
+        required: true
+  Error:
+    type: object
+    properties:
+      status:
+        type: string
+      message:
+        type: string
+  Errors:
+    type: object
+    properties:
+      errors:
+        type: array
+        minItems: 1
+        items:
+          $ref: 'Error'
+parameters:
+  X-Application-Id:
+    name: X-Application-Id
+    required: true
+    type: string
+    in: header
