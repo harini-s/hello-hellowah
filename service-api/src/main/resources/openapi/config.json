@@ -7,9 +7,10 @@
   "interfaceOnly": true,
   "useBeanValidation": true,
   "java8": true,
-  "async": true,
+  "async": false,
   "reactive": false,
   "useOptional": false,
   "swaggerDocketConfig": false,
   "library": "spring-boot"
+
 }
